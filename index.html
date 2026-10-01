@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <title>Simulado Provão Paulista 1ª série</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans min-h-screen">
+
+    <!-- TELA INICIAL -->
+    <div id="tela-inicial" class="flex flex-col items-center justify-center min-h-screen p-4">
+        <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full text-center">
+            <h1 class="text-2xl font-bold text-blue-600 mb-4">Simulado Provão Paulista 1ª série</h1>
+            <p class="mb-6 text-sm text-gray-600">
+                Atenção: Esta prova exige modo tela cheia. Se você sair da aba, abrir outros programas ou tentar pesquisar, o sistema registrará uma infração e <strong>a prova será anulada imediatamente</strong>.
+            </p>
+            
+            <div class="text-left mb-4">
+                <label class="block text-sm font-bold mb-1 text-gray-700">Nome Completo</label>
+                <input type="text" id="nome-inicial" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-blue-200" placeholder="Digite seu nome completo">
+            </div>
+            
+            <div class="text-left mb-4">
+                <label class="block text-sm font-bold mb-1 text-gray-700">Série / Turma</label>
+                <input type="text" id="turma-inicial" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-blue-200" placeholder="Ex: 1º Ano A">
+            </div>
+
+            <div class="text-left mb-6">
+                <label class="block text-sm font-bold mb-1 text-gray-700">RA do Estudante (13 dígitos)</label>
+                <input type="text" id="ra-inicial" maxlength="13" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-full border border-gray-300 rounded p-2 focus:ring focus:ring-blue-200" placeholder="Ex: 0000000000000">
+            </div>
+
+            <button onclick="iniciarProva()" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 font-bold w-full transition-colors">
+                Entrar em Tela Cheia e Iniciar
+            </button>
+        </div>
+    </div>
+
+    <!-- TELA DA PROVA -->
+    <div id="tela-prova" style="display: none;" class="max-w-3xl mx-auto py-8 px-4">
+        
+        <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center bg-white p-4 rounded shadow mb-6 sticky top-0 z-10 border-t-4 border-blue-600 gap-4">
+            <div>
+                <h2 class="font-bold text-lg">Simulado 1ª série <strong>DIA 1</strong></h2>
+                <p class="text-xs sm:text-sm text-gray-600">
+                    Aluno: <span id="display-nome" class="font-semibold"></span> | 
+                    Série: <span id="display-turma" class="font-semibold"></span> | 
+                    RA: <span id="display-ra" class="font-semibold"></span>
+                </p>
+            </div>
+            <div class="text-red-600 font-bold bg-red-100 px-3 py-1 rounded w-full sm:w-auto text-center">
+                Infrações: <span id="contador-infracoes">0</span> / 1
+            </div>
+        </div>
+
+        <form id="form-prova" class="space-y-6">
+            <input type="hidden" name="nome" id="nome-hidden">
+            <input type="hidden" name="turma" id="turma-hidden">
+            <input type="hidden" name="ra" id="ra-hidden">
+
+            <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-600 mb-6">
+                <h2 class="font-bold text-xl">Questões de Português</h2>
+            </div>
+            
+            <!-- QUESTÃO 1 -->
+            <div class="bg-white p-6 rounded shadow">
+                <p class="font-bold mb-3">1. Depreende-se do meme que seu autor se sente:</p>
+                <img src="1_1_1ANO.PNG" alt="LOBO NA FILA" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <div class="space-y-2">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q1" value="a" required class="mr-3"> (A) arrependido.</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q1" value="b" class="mr-3"> (B) enganado.</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q1" value="c" class="mr-3"> (C) honesto.</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q1" value="d" class="mr-3"> (D) hipócrita.</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q1" value="e" class="mr-3"> (E) arrogante.</label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 2 -->
+            <div class="bg-white p-6 rounded shadow">
+                <h3 class="font-bold text-lg mb-2 text-blue-700">Leia o texto para responder à questão 02.</h3>
+                <img src="1_2_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <img src="1_2.1_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <p class="font-bold mb-3 mt-6">2. Está empregada em sentido figurado a palavra sublinhada em:</p>
+                <div class="space-y-2">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q2" value="a" required class="mr-3"> (A) "Assim conta a lenda - e mostra o cinema, em filme de estrondoso sucesso".</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q2" value="b" class="mr-3"> (B) "Esta é a origem da expressão presente de grego".</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q2" value="c" class="mr-3"> (C) "É que o homem nunca deixou de ser o lobo do homem".</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q2" value="d" class="mr-3"> (D) "Na calada da noite, os soldados gregos, escondidos, saem do interior do cavalão".</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q2" value="e" class="mr-3"> (E) "Para se vingar, Menelau forma um poderoso exército".</label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 3 -->
+            <div class="bg-white p-6 rounded shadow">
+                <h3 class="font-bold text-lg mb-2 text-blue-700">Leia o texto para responder à questão 03.</h3>
+                <img src="1_3_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <p class="font-bold mb-3 mt-6">3. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_3.1_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q3" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q3" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q3" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q3" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q3" value="e" class="mr-2"> (E)</label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 4 -->
+            <div class="bg-white p-6 rounded shadow">
+                <h3 class="font-bold text-lg mb-2 text-blue-700">Leia o texto para responder à questão 04.</h3>
+                <img src="1_4_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <p class="font-bold mb-3 mt-6">4. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_4.1_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q4" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q4" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q4" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q4" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q4" value="e" class="mr-2"> (E)</label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 5 -->
+            <div class="bg-white p-6 rounded shadow">
+                <h3 class="font-bold text-lg mb-2 text-blue-700">Leia o texto para responder à questão 05 E 06.</h3>
+                <img src="1_5_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <p class="font-bold mb-3 mt-6">5. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_5.1_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q5" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q5" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q5" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q5" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q5" value="e" class="mr-2"> (E)</label>
+                </div>
+           
+
+             <!-- QUESTÃO 6 -->
+            
+                
+                <p class="font-bold mb-3 mt-6">6. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_6_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q6" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q6" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q6" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q6" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q6" value="e" class="mr-2"> (E)</label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 7 -->
+            <div class="bg-white p-6 rounded shadow">
+                <h3 class="font-bold text-lg mb-2 text-blue-700">Leia o texto para responder à questão 07 E 08.</h3>
+                <img src="1_7_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <p class="font-bold mb-3 mt-6">7. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_7.1_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q7" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q7" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q7" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q7" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q7" value="e" class="mr-2"> (E)</label>
+                </div>
+           
+
+             <!-- QUESTÃO 8 -->
+            
+                
+                <p class="font-bold mb-3 mt-6">8. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_8_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q8" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q8" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q8" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q8" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q8" value="e" class="mr-2"> (E)</label>
+                </div>
+            </div>
+
+             <!-- QUESTÃO 9 -->
+            <div class="bg-white p-6 rounded shadow">
+                <h3 class="font-bold text-lg mb-2 text-blue-700">Leia o texto para responder à questão 09.</h3>
+                <img src="1_9_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <img src="1_9.1_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <p class="font-bold mb-3 mt-6">9. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_9.2_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q9" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q9" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q9" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q9" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q9" value="e" class="mr-2"> (E)</label>
+                </div>
+            </div>
+
+
+            <!-- QUESTÃO 10 -->
+            <div class="bg-white p-6 rounded shadow">
+                <h3 class="font-bold text-lg mb-2 text-blue-700">Leia o texto para responder à questão 10 E 11.</h3>
+                <img src="1_10_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <p class="font-bold mb-3 mt-6">10. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_10.1_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q10" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q10" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q10" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q10" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q10" value="e" class="mr-2"> (E)</label>
+                </div>
+           
+
+             <!-- QUESTÃO 11 -->
+            
+                
+                <p class="font-bold mb-3 mt-6">11. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_10.2_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q11" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q11" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q11" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q11" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q11" value="e" class="mr-2"> (E)</label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 12 -->
+            <div class="bg-white p-6 rounded shadow">
+                <h3 class="font-bold text-lg mb-2 text-blue-700">Leia os textos para responder à questão 12.</h3>
+                <img src="1_12_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <p class="font-bold mb-3 mt-6">12. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_12.1_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q12" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q12" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q12" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q12" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q12" value="e" class="mr-2"> (E)</label>
+                </div>
+                 </div>
+
+                 <!-- QUESTÃO 13 -->
+            <div class="bg-white p-6 rounded shadow">
+                <h3 class="font-bold text-lg mb-2 text-blue-700">Leia o texto para responder à questão 13 E 14.</h3>
+                <img src="1_13_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <p class="font-bold mb-3 mt-6">13. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_13.1_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q13" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q13" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q13" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q13" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q13" value="e" class="mr-2"> (E)</label>
+                </div>
+           
+
+             <!-- QUESTÃO 14 -->
+            
+                
+                <p class="font-bold mb-3 mt-6">14. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_14_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q14" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q14" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q14" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q14" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q14" value="e" class="mr-2"> (E)</label>
+                </div>
+            </div>
+
+             <!-- QUESTÃO 15 -->
+            <div class="bg-white p-6 rounded shadow">
+                <h3 class="font-bold text-lg mb-2 text-blue-700">Leia o texto para responder à questão 15.</h3>
+                <img src="1_15_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <p class="font-bold mb-3 mt-6">15. De acordo com a imagem abaixo, selecione a alternativa correta:</p>
+                <img src="1_15.1_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q15" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q15" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q15" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q15" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q15" value="e" class="mr-2"> (E)</label>
+                </div>
+                 </div>
+
+                 <!-- QUESTÃO 16 -->
+            <div class="bg-white p-6 rounded shadow">
+                <h3 class="font-bold text-lg mb-2 text-blue-700">16. Observe a charge.</h3>
+                <img src="1_16_1ANO.PNG.jpg" alt="TEXTO1" class="w-4/5 max-w-md h-auto mx-auto my-4 rounded shadow border">
+                <p class="font-bold mb-3 mt-6">Selecione a alternativa correta:</p>
+               
+                <!-- OPÇÕES NA MESMA LINHA -->
+                <div class="flex flex-row flex-wrap justify-center gap-6 mt-4">
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q16" value="a" required class="mr-2"> (A)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q16" value="b" class="mr-2"> (B)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q16" value="c" class="mr-2"> (C)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q16" value="d" class="mr-2"> (D)</label>
+                    <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer"><input type="radio" name="q16" value="e" class="mr-2"> (E)</label>
+                </div>
+                 </div>
+
+
+
+
+
+
+            <button type="submit" class="bg-green-600 text-white px-6 py-4 rounded hover:bg-green-700 font-bold w-full text-lg shadow-lg transition-colors mt-8">
+                Finalizar e Enviar Prova
+            </button>
+        </form>
+    </div>
+
+    <!-- TELA DE RESULTADO / ANULAÇÃO -->
+    <div id="tela-resultado" style="display: none;" class="flex-col items-center justify-center min-h-screen text-center p-4"></div>
+
+    <script>
+        // ===== LINK DO GOOGLE SHEETS =====
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz59CjJSsIr8p8UOyES8fvlLfq7xnFRm0k6K_uzKXoH2WnCQYPRTL2xY7ESaPSIhwoJ/exec';
+
+        // --- VARIÁVEIS DE CONTROLE ---
+        let provaIniciada = false;
+        let sistemaAntiColaAtivo = false; 
+
+        // --- GABARITO ---
+        // Adicionadas as questões 4, 5 e 6 para evitar erros de cálculo
+        const gabarito = {
+     q1: 'd', q2: 'c', q3: 'e', q4: 'b', q5: 'd', q6: 'a', q7: 'a', q8: 'c', q9: 'd',
+     q10: 'c', q11: 'e', q12: 'a', q13: 'e', q14: 'c', q15: 'a', q16: 'b', q17: 'd', q18: 'a',
+     q19: 'c', q20: 'b', q21: 'c', q22: 'a', q23: 'a', q24: 'e',
+     q25: 'a', q26: 'c', q27: 'a', q28: 'e', q29: 'e', q30: 'c', q31: 'e', q32: 'b',
+     q33: 'a', q34: 'a', q35: 'e', q36: 'b', q37: 'c', q38: 'a', q39: 'b', q40: 'a',
+     q41: 'a', q42: 'e', q43: 'a', q44: 'e', q45: 'd', q46: 'b', q47: 'e', q48: 'd'};
+
+        // --- INICIAR PROVA ---
+        function iniciarProva() {
+            const nomeInput = document.getElementById('nome-inicial').value.trim();
+            const turmaInput = document.getElementById('turma-inicial').value.trim();
+            const raInput = document.getElementById('ra-inicial').value.trim();
+
+            if (nomeInput === "" || turmaInput === "" || raInput === "") {
+                alert("⚠️ Por favor, preencha todos os campos: Nome, Série e RA.");
+                return; 
+            }
+
+            if (raInput.length !== 13) {
+                alert("⚠️ O RA deve conter exatamente 13 números.");
+                return;
+            }
+
+            document.getElementById('nome-hidden').value = nomeInput;
+            document.getElementById('turma-hidden').value = turmaInput;
+            document.getElementById('ra-hidden').value = raInput;
+            
+            document.getElementById('display-nome').innerText = nomeInput;
+            document.getElementById('display-turma').innerText = turmaInput;
+            document.getElementById('display-ra').innerText = raInput;
+
+            document.documentElement.requestFullscreen().then(() => {
+                document.getElementById('tela-inicial').style.display = 'none';
+                document.getElementById('tela-prova').style.display = 'block';
+                provaIniciada = true;
+                
+                // Aguarda 1 segundo para o navegador estabilizar antes de ligar o sensor anti-cola
+                setTimeout(() => {
+                    sistemaAntiColaAtivo = true;
+                }, 1000);
+
+            }).catch((err) => {
+                alert(`Erro ao abrir tela cheia: Seu navegador bloqueou a ação. Tente novamente.`);
+            });
+        }
+
+        // --- SISTEMA DE ANULAÇÃO BLINDADO ---
+        function registrarInfracao() {
+            if (!provaIniciada || !sistemaAntiColaAtivo) return;
+            
+            // Trava imediatamente para não rodar duas vezes
+            provaIniciada = false;
+            sistemaAntiColaAtivo = false;
+            
+            document.getElementById('contador-infracoes').innerText = "1";
+
+            const nomeAluno = document.getElementById('nome-hidden').value;
+            const turmaAluno = document.getElementById('turma-hidden').value;
+            const raAluno = document.getElementById('ra-hidden').value;
+
+            // FORÇA A TROCA DE TELA IMEDIATAMENTE (Esconde a prova, mostra a anulação)
+            document.getElementById('tela-prova').style.display = 'none';
+            const telaResultado = document.getElementById('tela-resultado');
+            telaResultado.style.display = 'flex';
+            
+            telaResultado.innerHTML = `
+                <div class="bg-red-50 border-l-4 border-red-500 p-8 rounded shadow-lg max-w-md w-full">
+                    <h1 class="text-3xl font-bold text-red-600 mb-4">PROVA ANULADA</h1>
+                    <p class="text-lg mb-2">Você saiu da tela da prova, mudou de aba ou perdeu o foco da janela.</p>
+                    <p class="mt-4 font-semibold text-gray-700 text-left">Aluno: ${nomeAluno}</p>
+                    <p class="font-semibold text-gray-700 text-left">RA: ${raAluno}</p>
+                    <p class="mt-6 text-sm text-gray-600 font-bold bg-red-200 p-2 rounded">O sistema já registrou sua anulação na planilha do professor.</p>
+                </div>
+            `;
+
+            // Tenta sair da tela cheia automaticamente
+            if(document.fullscreenElement) {
+                document.exitFullscreen().catch(e => console.log("Erro ao sair da tela cheia"));
+            }
+
+            // ENVIA A ANULAÇÃO SILENCIOSAMENTE PARA O GOOGLE SHEETS
+            const dadosAnulada = new URLSearchParams();
+            dadosAnulada.append('nome', nomeAluno);
+            dadosAnulada.append('turma', turmaAluno);
+            dadosAnulada.append('nota', 'ANULADA'); 
+            dadosAnulada.append('infracoes', '1');
+            dadosAnulada.append('ra', raAluno);
+
+            fetch(scriptURL, { method: 'POST', body: dadosAnulada })
+                .catch(err => console.error("Erro na anulação:", err));
+        }
+
+        // --- GATILHOS DO SENSOR ANTI-COLA ---
+        document.addEventListener('visibilitychange', () => { 
+            if (document.hidden) registrarInfracao(); 
+        });
+        
+        window.addEventListener('blur', () => { 
+            registrarInfracao(); 
+        });
+        
+        document.addEventListener('fullscreenchange', () => { 
+            if (!document.fullscreenElement) registrarInfracao(); 
+        });
+
+        // --- ENVIO NORMAL DA PROVA ---
+        document.getElementById('form-prova').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            if (!provaIniciada) return;
+
+            sistemaAntiColaAtivo = false; // Desliga o sensor para poder enviar em paz
+
+            const form = document.getElementById('form-prova');
+            const dados = new FormData(form);
+            let nota = 0;
+
+            for (let [questao, respostaCerta] of Object.entries(gabarito)) {
+                if (dados.get(questao) === respostaCerta) { nota++; }
+            }
+
+            const nomeAluno = document.getElementById('nome-hidden').value;
+            const turmaAluno = document.getElementById('turma-hidden').value;
+            const raAluno = document.getElementById('ra-hidden').value;
+
+            document.getElementById('tela-prova').style.display = 'none';
+            const telaResultado = document.getElementById('tela-resultado');
+            telaResultado.style.display = 'flex';
+            
+            telaResultado.innerHTML = `
+                <div class="animate-pulse">
+                    <h2 class="text-2xl font-bold text-blue-600 mb-2">Corrigindo e Enviando prova...</h2>
+                    <p class="text-gray-600">Por favor, não feche a janela.</p>
+                </div>
+            `;
+
+            const dadosParaEnviar = new URLSearchParams();
+            dadosParaEnviar.append('nome', nomeAluno);
+            dadosParaEnviar.append('turma', turmaAluno);
+            dadosParaEnviar.append('nota', nota);
+            dadosParaEnviar.append('infracoes', '0');
+            dadosParaEnviar.append('ra', raAluno);
+
+            fetch(scriptURL, { method: 'POST', body: dadosParaEnviar })
+                .then(response => {
+                    provaIniciada = false; 
+                    if(document.fullscreenElement) document.exitFullscreen().catch(e => e);
+                    
+                    telaResultado.innerHTML = `
+                        <div class="bg-green-100 p-8 rounded-lg border-2 border-green-500 shadow-lg max-w-md w-full">
+                            <h1 class="text-3xl font-bold text-green-700 mb-4">Prova Entregue!</h1>
+                            <p class="text-xl mb-2 font-semibold">${nomeAluno}</p>
+                            <p class="text-gray-700 mb-4">Série: ${turmaAluno} | RA: ${raAluno}</p>
+                            <div class="bg-white p-4 rounded shadow-inner text-2xl font-bold text-gray-800">
+                                Sua Nota: ${nota} / ${Object.keys(gabarito).length}
+                            </div>
+                            <p class="mt-6 text-sm text-gray-500">O professor já recebeu sua prova na planilha. Você pode fechar esta aba.</p>
+                        </div>
+                    `;
+                })
+                .catch(error => {
+                    telaResultado.innerHTML = `
+                        <div class="bg-red-50 border-l-4 border-red-500 p-8 rounded shadow-lg max-w-md w-full">
+                            <h1 class="text-2xl font-bold text-red-600 mb-4">Erro de Conexão</h1>
+                            <p>Ocorreu um erro ao enviar. A internet pode ter caído.</p>
+                            <p class="font-bold mt-2">Chame o professor.</p>
+                        </div>
+                    `;
+                });
+        });
+    </script>
+</body>
+</html>
